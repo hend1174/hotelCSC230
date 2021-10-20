@@ -15,6 +15,9 @@ class Room(models.Model):
     def __str__(self):
         return "Room #" + str(self.room_num)
 
+class Employee(models.Model):
+    pass
+
 class Guest(models.Model):
     MR = 'MR'
     MS = 'MS'
@@ -34,3 +37,6 @@ class Guest(models.Model):
 
     def __str__(self):
         return self.first + " " + self.last
+
+    def get_absolute_url(self):
+        return '/guestlist'

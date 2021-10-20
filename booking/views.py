@@ -1,8 +1,23 @@
 from django.shortcuts import render
-from django.views.generic import ListView
-from .models import Room, Guest
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 
-ROOMS = [101,102,103,104]
+from .models import Room, Guest
+from .forms import GuestCreateForm, GuestUpdateForm
+
+class GuestDelete(DeleteView):
+    model = Guest
+    template_name = 'booking/guest_delete_form.html'
+    success_url = '/guestlist'
+
+class GuestUpdate(UpdateView):
+    model = Guest
+    template_name = 'booking/guest_update_form.html'
+    form_class = GuestUpdateForm
+
+class GuestCreate(CreateView):
+    model = Guest
+    template_name = 'booking/guest_create_form.html'
+    form_class = GuestCreateForm
 
 # Create your views here.
 class RoomList(ListView):
@@ -12,7 +27,7 @@ class GuestList(ListView):
     model = Guest
 
 def home(request):
-    #templates folder is already assumed because this app is registered in settings.py
+    # templates folder is already assumed because this app is registered in settings.py
     name = "Ryan"
     loggedin=False
     context = {"user_first_name":name, "rooms":ROOMS, "loggedin":loggedin}
