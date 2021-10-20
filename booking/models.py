@@ -1,4 +1,5 @@
 from django.db import models
+
 BASE_PRICE = 80.00
 SUITE_UPCHARGE = 0.25
 OCEAN_UPCHARGE = 0.25
@@ -13,3 +14,23 @@ class Room(models.Model):
 
     def __str__(self):
         return "Room #" + str(self.room_num)
+
+class Guest(models.Model):
+    MR = 'MR'
+    MS = 'MS'
+    DR = 'DR'
+    OT = ''
+    HONORIFIC_CHOICES = [
+        (MR, 'Mr.'),
+        (MS, 'Ms.'),
+        (DR, 'Dr.'),
+        (OT, '')
+    ]
+    honorific = models.CharField(max_length=2, choices = HONORIFIC_CHOICES, default=OT)
+    first = models.CharField(max_length=100)
+    last = models.CharField(max_length=100)
+    vip = models.IntegerField(default=-1)
+    email = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.first + " " + self.last

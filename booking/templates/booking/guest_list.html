@@ -1,0 +1,9 @@
+{% extends "./base.html" %}
+{% block content %}
+    <table>
+        <tr><th>Name</th><th>VIP</th><th>Email</th></tr>
+        {% for guest in guest_list %}
+            <tr><td>{{ guest.honorific }} {{ guest.first }} {{ guest.last }}</td><td>{% if guestvip > 0 %}{{ guest.vip }}{% else %}Not Enrolled{% endif %}</td><td>{{ guest.email }}</td></tr>
+        {% endfor %}
+    </table>
+{% endblock %}
