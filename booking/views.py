@@ -1,23 +1,46 @@
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 
-from .models import Room, Guest
-from .forms import GuestCreateForm, GuestUpdateForm
+from .models import Room, Guest, Employee, Stay
+from .forms import GuestCreateForm, GuestUpdateForm, EmployeeCreateForm, EmployeeUpdateForm, StayCreateForm
 
+# v class DeleteView v
 class GuestDelete(DeleteView):
     model = Guest
     template_name = 'booking/guest_delete_form.html'
     success_url = '/guestlist'
 
+class EmployeeDelete(DeleteView):
+    model = Employee
+    template_name = 'booking/employee_delete_form.html'
+    success_url = '/employeelist'
+
+# v class Update v
 class GuestUpdate(UpdateView):
     model = Guest
     template_name = 'booking/guest_update_form.html'
     form_class = GuestUpdateForm
 
+class EmployeeUpdate(UpdateView):
+    model = Employee
+    template_name = 'booking/employee_update_form.html'
+    form_class = EmployeeUpdateForm
+
+# v class Create v
 class GuestCreate(CreateView):
     model = Guest
     template_name = 'booking/guest_create_form.html'
     form_class = GuestCreateForm
+
+class EmployeeCreate(CreateView):
+    model = Employee
+    template_name = 'booking/employee_create_form.html'
+    form_class = EmployeeCreateForm
+
+class StayCreate(CreateView):
+    model = Stay
+    template_name = 'booking/stay_create_form.html'
+    form_stay = StayCreateForm
 
 # Create your views here.
 class RoomList(ListView):
@@ -25,6 +48,9 @@ class RoomList(ListView):
 
 class GuestList(ListView):
     model = Guest
+
+class EmployeeList(ListView):
+    model = Employee
 
 def home(request):
     # templates folder is already assumed because this app is registered in settings.py

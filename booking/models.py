@@ -16,7 +16,12 @@ class Room(models.Model):
         return "Room #" + str(self.room_num)
 
 class Employee(models.Model):
-    pass
+    first = models.CharField(max_length=20)
+    last = models.CharField(max_length=20)
+    empid = models.IntegerField(default=-1)
+
+    def __str__(self):
+        return self.first + " " + self.last
 
 class Guest(models.Model):
     MR = 'MR'
@@ -40,3 +45,15 @@ class Guest(models.Model):
 
     def get_absolute_url(self):
         return '/guestlist'
+
+class Stay(models.Model):
+    roomid = models.ForeignKey(Room, on_delete=models.CASCADE)
+    guestid = models.ForeignKey(Guest, on_delete=models.CASCADE)
+    empid = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    start = models.DateField(auto_now=False, auto_now_add=False)
+    end = models.DateField(auto_now=False, auto_now_add=False)
+    timestamp = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return str.guestid.first + " " + self.guestid.last + " staying " + str(self.start.month) + " " + str(self.start.day)
+
