@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.contrib.auth.decorators import login_required
 
 from .models import Room, Guest, Employee, Stay
 from .forms import GuestCreateForm, GuestUpdateForm, EmployeeCreateForm, EmployeeUpdateForm, StayCreateForm
@@ -40,7 +41,7 @@ class EmployeeCreate(CreateView):
 class StayCreate(CreateView):
     model = Stay
     template_name = 'booking/stay_create_form.html'
-    form_stay = StayCreateForm
+    form_class = StayCreateForm
 
 # Create your views here.
 class RoomList(ListView):
@@ -52,12 +53,15 @@ class GuestList(ListView):
 class EmployeeList(ListView):
     model = Employee
 
+@login_required
 def home(request):
     # templates folder is already assumed because this app is registered in settings.py
     name = "Ryan"
     loggedin=False
+    ROOMS = [101,102,103,104]
     context = {"user_first_name":name, "rooms":ROOMS, "loggedin":loggedin}
     return render(request, 'booking/home.html', context=context)
 
+@login_required
 def about(request):
-    return render(request, 'booking/about.html')
+    return render(request,'booking/about.html')

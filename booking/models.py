@@ -55,5 +55,5 @@ class Stay(models.Model):
     timestamp = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return str.guestid.first + " " + self.guestid.last + " staying " + str(self.start.month) + " " + str(self.start.day)
+        return self.guestid.first + " " + self.guestid.last + " staying " + str(self.start.month) + " " + str(self.start.day)
 
